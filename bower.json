@@ -1,0 +1,23 @@
+{
+  "name": "University",
+  "version": "0.0.1",
+  "authors": [
+    "austinw@csu.fullerton.edu"
+  ],
+  "description": "CPSC 332 project",
+  "main": "index.php",
+  "license": "MIT",
+  "homepage": "http://ecs.fullerton.edu/~cs332h29/",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.1.1",
+    "font-awesome": "~4.1.0"
+  }
+}
