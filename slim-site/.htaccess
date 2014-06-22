@@ -1,0 +1,9 @@
+#SetEnvIf Request_URI "(.*)$" allow
+#Order allow,deny
+#Allow from env=allow
+#Satisfy any
+#
+#RewriteEngine ON
+#
+#RewriteRule ^~cs332h29/(.*)$ ~cs332h29/index.php/$1 [L]
+#RewriteRule ^(.*)$ index.php/$1 [L]
