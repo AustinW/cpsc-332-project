@@ -1,0 +1,8 @@
+{
+    "connection": {
+        "host": "localhost",
+        "username": "homestead",
+        "password": "secret",
+        "database": "university"
+    }
+}
