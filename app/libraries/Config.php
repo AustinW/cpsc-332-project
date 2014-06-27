@@ -8,25 +8,27 @@
 
 define('APP_PATH', __DIR__ . '../../');
 
-class Config {
+class Config
+{
     static $basePath = "config/";
 
-    public static function get($identifier, $fileFormat = 'json') {
+    public static function get($identifier, $fileFormat = 'php')
+    {
 
         $path = explode('::', $identifier);
         $key = $path[1];
 
-        $contents = json_decode(file_get_contents(APP_PATH . self::$basePath . $path[0] . '.' . $fileFormat), true);
+        include APP_PATH . self::$basePath . $path[0] . '.' . $fileFormat;
 
-        return self::array_get($contents, $key);
+        return self::array_get($settings, $key);
     }
 
     /**
      * Get an item from an array using "dot" notation.
      *
-     * @param  array   $array
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param  array $array
+     * @param  string $key
+     * @param  mixed $default
      * @return mixed
      */
     public static function array_get($array, $key, $default = null)
@@ -35,10 +37,8 @@ class Config {
 
         if (isset($array[$key])) return $array[$key];
 
-        foreach (explode('.', $key) as $segment)
-        {
-            if ( ! is_array($array) || ! array_key_exists($segment, $array))
-            {
+        foreach (explode('.', $key) as $segment) {
+            if (!is_array($array) || !array_key_exists($segment, $array)) {
                 return $default;
             }
 
@@ -47,4 +47,4 @@ class Config {
 
         return $array;
     }
-} 
+}
