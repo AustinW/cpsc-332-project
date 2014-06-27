@@ -48,11 +48,11 @@ $('#courses-search-submit').click(function(event) {
 $('#student-search-submit').click(function(event) {
     event.preventDefault();
 
-    var ssn = $('form#student-search-form input[name=ssn]').val();
+    var cwid = $('form#student-search-form input[name=cwid]').val();
 
     $.get(window.location.pathname + 'app/ajax.php', {
             type: 'student',
-            ssn: ssn
+            cwid: cwid
         },
         function(response) {
             $('#student-search-form table').fadeIn();

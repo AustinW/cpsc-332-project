@@ -11,7 +11,7 @@ require_once __DIR__ . '/../../../vendor/fzaninotto/faker/src/autoload.php';
 
 $faker = Faker\Factory::create();
 
-$db = Database::instance();
+$db = Database::pdo();
 
 $query = "SELECT * FROM students";
 $stmt = $db->prepare($query);

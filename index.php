@@ -135,8 +135,8 @@
                                         <hr>
                                         <form class="form-inline" role="form" id="student-search-form" method="get">
                                             <div class="form-group">
-                                                <label for="student-search-ssn">SSN:</label>
-                                                <input type="text" class="form-control" name="ssn" id="student-search-ssn">
+                                                <label for="student-search-cwid">CWID:</label>
+                                                <input type="text" class="form-control" name="cwid" id="student-search-cwid">
                                             </div>
                                             <button type="submit" class="btn btn-primary" id="student-search-submit"><i class="fa fa-search"></i> Search</button>
 

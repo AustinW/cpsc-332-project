@@ -14,7 +14,7 @@ require_once __DIR__ . '/../../../vendor/fzaninotto/faker/src/autoload.php';
 $faker = Faker\Factory::create();
 $faker->addProvider(new \Faker\Provider\Book($faker));
 
-$db = Database::instance();
+$db = Database::pdo();
 
 $sql = "INSERT INTO courses
         (number, title, textbook, units)

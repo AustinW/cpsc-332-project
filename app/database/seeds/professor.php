@@ -12,7 +12,7 @@ require_once __DIR__ . '/../../../vendor/fzaninotto/faker/src/autoload.php';
 
 $faker = Faker\Factory::create();
 
-$db = Database::instance();
+$db = Database::pdo();
 
 $sql = "INSERT INTO professors
         (ssn, fname, lname, sex, title, salary, college_degrees, address_street, address_city, address_state, address_zip, phone_area, phone_number)

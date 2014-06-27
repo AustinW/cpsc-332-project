@@ -22,13 +22,29 @@ class Database {
             $settings = Config::get('database::connection');
 
             try {
-                $instance = new PDO('mysql:host=' . $settings['host'] . ';dbname=' . $settings['database'], $settings['username'], $settings['password']);
-                $instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            } catch(PDOException $e) {
-                die('ERROR: ' . $e->getMessage());
+                $instance = new mysqli($settings['host'], $settings['username'], $settings['password'], $settings['database']);
+            } catch(Exception $e) {
+                die('MySQLi Error: ' . $e->getMessage());
             }
         }
 
         return $instance;
+    }
+
+    public static function pdo()
+    {
+        static $instance = null;
+
+        if ($instance === null) {
+            $settings = Config::get('database::connection');
+
+            try {
+                $instance = new PDO('mysql:host=' . $settings['host'] . ';dbname=' . $settings['database'], $settings['username'], $settings['password']);
+                $instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            } catch (Exception $e) {
+                die('PDO Error: ' . $e->getMessage());
+            }
+        }
+
     }
 }
