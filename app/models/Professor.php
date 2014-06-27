@@ -5,13 +5,13 @@
  * Date: 6/24/14
  */
 
-require_once 'BaseModel.php';
+require_once 'Database.php';
 
-class Professor extends BaseModel {
+class Professor {
 
     public static function find($ssn)
     {
-        $stmt = parent::getConnection()->prepare('SELECT * FROM `professors` WHERE `ssn` = :ssn LIMIT 1');
+        $stmt = Database::getConnection()->prepare('SELECT * FROM `professors` WHERE `ssn` = :ssn LIMIT 1');
         $stmt->execute(array('ssn' => $ssn));
 
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Professor');
@@ -20,7 +20,7 @@ class Professor extends BaseModel {
 
     public static function all()
     {
-        $stmt = parent::getConnection()->prepare('SELECT * FROM `professors`');
+        $stmt = Database::getConnection()->prepare('SELECT * FROM `professors`');
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Professor');
