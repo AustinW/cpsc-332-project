@@ -1,2 +1,3 @@
 bower_components
 .idea/*
+app/config/database.json
