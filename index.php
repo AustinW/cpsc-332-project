@@ -29,7 +29,7 @@
                         <div class="tab-pane fade in active" id="professors">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <h4>Search Professors:</h4>
                                         <hr>
                                         <form class="form-inline" role="form" id="professors-search-form" method="get">
@@ -58,7 +58,7 @@
                                 </div>
 
                                 <div class="row" style="margin-top:50px">
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <h4>Search Grades:</h4>
                                         <hr>
                                         <form class="form-inline" role="form" id="professors-grade-form" method="get">
@@ -101,7 +101,7 @@
                         <div class="tab-pane fade" id="students">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <h4>Search Courses:</h4>
                                         <hr>
                                         <form class="form-inline" role="form" id="courses-search-form" method="get">
@@ -130,7 +130,7 @@
                                 </div>
 
                                 <div class="row" style="margin-top:50px">
-                                    <div class="col-md-8">
+                                    <div class="col-md-9">
                                         <h4>Search Student:</h4>
                                         <hr>
                                         <form class="form-inline" role="form" id="student-search-form" method="get">
