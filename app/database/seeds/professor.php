@@ -7,12 +7,12 @@
  * NOTE: Faker requires PHP >= 5.3.3
  */
 
-require_once __DIR__ . '/../../../app/models/BaseModel.php';
+require_once __DIR__ . '/../../../app/models/Database.php';
 require_once __DIR__ . '/../../../vendor/fzaninotto/faker/src/autoload.php';
 
 $faker = Faker\Factory::create();
 
-$db = BaseModel::getConnection();
+$db = Database::getConnection();
 
 $sql = "INSERT INTO professors
         (ssn, fname, lname, sex, title, salary, college_degrees, address_street, address_city, address_state, address_zip, phone_area, phone_number)

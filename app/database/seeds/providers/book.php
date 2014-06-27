@@ -8,7 +8,6 @@
 
 namespace Faker\Provider;
 
-require_once __DIR__ . '/../../../models/BaseModel.php';
 require_once __DIR__ . '/../../../../vendor/fzaninotto/faker/src/autoload.php';
 
 class Book extends \Faker\Provider\Base

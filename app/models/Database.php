@@ -8,7 +8,7 @@
 
 require __DIR__ . '/../libraries/Config.php';
 
-class BaseModel {
+class Database {
 
     protected static $connection;
 

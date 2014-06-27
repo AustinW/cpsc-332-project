@@ -7,14 +7,14 @@
  * NOTE: Faker requires PHP >= 5.3.3
  */
 
-require_once __DIR__ . '/../../../app/models/BaseModel.php';
+require_once __DIR__ . '/../../../app/models/Database.php';
 require_once __DIR__ . '/../../../app/database/seeds/providers/book.php';
 require_once __DIR__ . '/../../../vendor/fzaninotto/faker/src/autoload.php';
 
 $faker = Faker\Factory::create();
 $faker->addProvider(new \Faker\Provider\Book($faker));
 
-$db = BaseModel::getConnection();
+$db = Database::getConnection();
 
 $sql = "INSERT INTO courses
         (number, title, textbook, units)
