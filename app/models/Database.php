@@ -12,30 +12,23 @@ class Database {
 
     protected static $connection;
 
-    public function __construct($conn = null) {
+    private function __construct() {}
 
-    }
+    public static function instance()
+    {
+        static $instance = null;
 
-    public static function setConnection($conn = null) {
-        if ($conn) {
-            self::$connection = $conn;
-        } else {
+        if ($instance === null) {
             $settings = Config::get('database::connection');
 
             try {
-                self::$connection = new PDO('mysql:host=' . $settings['host'] . ';dbname=' . $settings['database'], $settings['username'], $settings['password']);
-                self::$connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $instance = new PDO('mysql:host=' . $settings['host'] . ';dbname=' . $settings['database'], $settings['username'], $settings['password']);
+                $instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch(PDOException $e) {
                 die('ERROR: ' . $e->getMessage());
             }
         }
-    }
 
-    public static function getConnection() {
-        if ( ! self::$connection) {
-            self::setConnection();
-        }
-
-        return self::$connection;
+        return $instance;
     }
-} 
+}

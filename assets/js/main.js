@@ -8,6 +8,7 @@ $('#professors-search-submit').click(function(event) {
         ssn: ssn
     },
     function(response) {
+        $('#professors-search-form table').fadeIn();
         $('#professor-search-results').html(response);
     });
 });
@@ -24,7 +25,8 @@ $('#professors-grade-submit').click(function(event) {
         section_number: sectionNumber
     },
     function(response) {
-        $('#professor-grade-results').html(response);
+        $('#professors-grade-form table').fadeIn();
+        $('#professors-grade-results').html(response);
     });
 });
 
@@ -38,6 +40,7 @@ $('#courses-search-submit').click(function(event) {
         course_number: courseNumber
     },
     function(response) {
+        $('#courses-search-form table').fadeIn();
         $('#courses-search-results').html(response);
     });
 });
@@ -52,6 +55,7 @@ $('#student-search-submit').click(function(event) {
             ssn: ssn
         },
         function(response) {
+            $('#student-search-form table').fadeIn();
             $('#student-search-results').html(response);
         });
 });

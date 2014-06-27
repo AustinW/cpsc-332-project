@@ -9,3 +9,17 @@
 .badge-green {
     background-color: #419641;
 }
+
+#professors-search-form table, #professors-grade-form table, #courses-search-form table, #student-search-form table {
+    display: none;
+}
+
+.error {
+    font-style:italic;
+    font-weight:bold;
+    color: #d2322d;
+}
+
+.no-results {
+    font-style:italic;
+}

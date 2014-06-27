@@ -11,7 +11,7 @@ class Professor {
 
     public static function find($ssn)
     {
-        $stmt = Database::getConnection()->prepare('SELECT * FROM `professors` WHERE `ssn` = :ssn LIMIT 1');
+        $stmt = Database::instance()->prepare('SELECT * FROM `professors` WHERE `ssn` = :ssn LIMIT 1');
         $stmt->execute(array('ssn' => $ssn));
 
         $stmt->setFetchMode(PDO::FETCH_CLASS|PDO::FETCH_PROPS_LATE, 'Professor');
@@ -20,7 +20,7 @@ class Professor {
 
     public static function all()
     {
-        $stmt = Database::getConnection()->prepare('SELECT * FROM `professors`');
+        $stmt = Database::instance()->prepare('SELECT * FROM `professors`');
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_CLASS, 'Professor');

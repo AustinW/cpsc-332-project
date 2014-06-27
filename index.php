@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" style="margin-top:50px">
                                     <div class="col-md-8">
                                         <h4>Search Grades:</h4>
                                         <hr>
@@ -88,7 +88,7 @@
                                                         <th>F</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody id="professor-grade-results">
+                                                <tbody id="professors-grade-results">
                                                     <tr></tr>
                                                 </tbody>
                                             </table>
@@ -129,7 +129,7 @@
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" style="margin-top:50px">
                                     <div class="col-md-8">
                                         <h4>Search Student:</h4>
                                         <hr>

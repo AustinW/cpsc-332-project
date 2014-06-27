@@ -1,7 +1,10 @@
 <?php
 require_once 'models/Database.php';
 
-$db = Database::getConnection();
+$db = Database::instance();
+
+$noResultsFound = '<tr><td colspan="%d" class="no-results">No results found...</td></tr>';
+$invalidDataError = '<tr><td colspan="%d" class="error">Invalid data submitted...</td></tr>';
 
 if (isset($_GET['type']) && $_GET['type'] == 'professor') {
     // Professor...
@@ -10,24 +13,29 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
 
         $params = array('ssn' => (int)$_GET['ssn']);
 
-        $sql = "SELECT professors.`fname`, professors.`lname`, courses.`title`, sections.`classroom`, sections.`meeting_days`, sections.`beginning_time`, sections.`end_time`
+        $sql = "SELECT professors.fname, professors.lname, courses.title, sections.classroom, sections.meeting_days, sections.beginning_time, sections.end_time
                 FROM professors
-                INNER JOIN sections ON sections.`professor_ssn` = professors.`ssn`
-                INNER JOIN courses ON courses.`number` = sections.`course_number`
+                INNER JOIN sections ON sections.professor_ssn = professors.ssn
+                INNER JOIN courses ON courses.number = sections.course_number
                 WHERE ssn = :ssn";
 
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
 
-        while ($row = $stmt->fetchObject()) {
-            echo '<tr>';
-            echo '<td>' . $row->fname . ' ' . $row->lname . '</td>';
-            echo '<td>' . $row->title . '</td>';
-            echo '<td>' . $row->classroom . '</td>';
-            echo '<td>' . $row->meeting_days . '</td>';
-            echo '<td>' . $row->beginning_time . ' - ' . $row->end_time . '</td>';
-            echo '</tr>';
+        if ($stmt->rowCount() == 0) {
+            printf($noResultsFound, 5);
+        } else {
+            while ($row = $stmt->fetchObject()) {
+                echo '<tr>';
+                echo '<td>' . $row->fname . ' ' . $row->lname . '</td>';
+                echo '<td>' . $row->title . '</td>';
+                echo '<td>' . $row->classroom . '</td>';
+                echo '<td>' . $row->meeting_days . '</td>';
+                echo '<td>' . $row->beginning_time . ' - ' . $row->end_time . '</td>';
+                echo '</tr>';
+            }
         }
+
     } else if (isset($_GET['course_number']) && is_numeric($_GET['course_number']) && isset($_GET['section_number']) && is_numeric($_GET['section_number'])) {
 
         $params = array(
@@ -47,27 +55,30 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
 
-        $retrievedGrades = array();
+        if ($stmt->rowCount() == 0) {
+            printf($noResultsFound, count($gradeTemplate));
+        } else {
+            $retrievedGrades = array();
 
-        $courseTitle = null;
-        while ($row = $stmt->fetchObject()) {
-            if ( ! $courseTitle) $courseTitle = $row->title;
-            $retrievedGrades[$row->grade] = (int) $row->grade_count;
+            $courseTitle = null;
+            while ($row = $stmt->fetchObject()) {
+                if ( ! $courseTitle) $courseTitle = $row->title;
+                $retrievedGrades[$row->grade] = (int) $row->grade_count;
+            }
+
+            $grades = array_merge(
+                $gradeTemplate,
+                $retrievedGrades
+            );
+
+            echo '<tr>';
+            foreach ($grades as $gradeCount) {
+                echo '<td><strong>' . $gradeCount . '</strong></td>';
+            }
+            echo '</tr>';
         }
-
-        $grades = array_merge(
-            $gradeTemplate,
-            $retrievedGrades
-        );
-
-        echo '<tr>';
-        foreach ($grades as $gradeCount) {
-            echo '<td><strong>' . $gradeCount . '</strong></td>';
-        }
-        echo '</tr>';
-
     } else {
-        // error...
+        printf($invalidDataError, 12);
     }
 } else {
 
@@ -86,15 +97,20 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
 
-        while ($row = $stmt->fetchObject()) {
-            echo '<tr>';
-            echo '<td>' . $row->number . '</td>';
-            echo '<td>' . $row->classroom . '</td>';
-            echo '<td>' . $row->meeting_days . '</td>';
-            echo '<td>' . $row->beginning_time . ' - ' . $row->end_time . '</td>';
-            echo '<td><span class="badge badge-green">' . $row->enrollment_count . '</span></td>';
-            echo '</tr>';
+        if ($stmt->rowCount() == 0) {
+            printf($noResultsFound, 5);
+        } else {
+            while ($row = $stmt->fetchObject()) {
+                echo '<tr>';
+                echo '<td>' . $row->number . '</td>';
+                echo '<td>' . $row->classroom . '</td>';
+                echo '<td>' . $row->meeting_days . '</td>';
+                echo '<td>' . $row->beginning_time . ' - ' . $row->end_time . '</td>';
+                echo '<td><span class="badge badge-green">' . $row->enrollment_count . '</span></td>';
+                echo '</tr>';
+            }
         }
+
     } else if (isset($_GET['ssn']) && is_numeric($_GET['ssn'])) {
 
         $params = array(
@@ -110,11 +126,17 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
         $stmt = $db->prepare($sql);
         $stmt->execute($params);
 
-        while ($row = $stmt->fetchObject()) {
-            echo '<tr>';
-            echo '<td>(' . $row->number . ') ' . $row->title . '</td>';
-            echo '<td>' . $row->grade . '</td>';
-            echo '</tr>';
+        if ($stmt->rowCount() == 0) {
+            printf($noResultsFound, 2);
+        } else {
+            while ($row = $stmt->fetchObject()) {
+                echo '<tr>';
+                echo '<td>(' . $row->number . ') ' . $row->title . '</td>';
+                echo '<td>' . $row->grade . '</td>';
+                echo '</tr>';
+            }
         }
+    } else {
+        printf($invalidDataError, 5);
     }
 }
