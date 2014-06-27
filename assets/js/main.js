@@ -3,7 +3,7 @@ $('#professors-search-submit').click(function(event) {
 
     var ssn = $('form#professors-search-form input[name=ssn]').val();
 
-    $.get('/app/ajax.php', {
+    $.get(window.location.pathname + 'app/ajax.php', {
         type: 'professor',
         ssn: ssn
     },
@@ -19,7 +19,7 @@ $('#professors-grade-submit').click(function(event) {
     var courseNumber = $('form#professors-grade-form input[name=course_number]').val();
     var sectionNumber = $('form#professors-grade-form input[name=section_number]').val();
 
-    $.get('/app/ajax.php', {
+    $.get(window.location.pathname + 'app/ajax.php', {
         type: 'professor',
         course_number: courseNumber,
         section_number: sectionNumber
@@ -35,7 +35,7 @@ $('#courses-search-submit').click(function(event) {
 
     var courseNumber = $('form#courses-search-form input[name=course_number]').val();
 
-    $.get('/app/ajax.php', {
+    $.get(window.location.pathname + 'app/ajax.php', {
         type: 'student',
         course_number: courseNumber
     },
@@ -50,7 +50,7 @@ $('#student-search-submit').click(function(event) {
 
     var ssn = $('form#student-search-form input[name=ssn]').val();
 
-    $.get('/app/ajax.php', {
+    $.get(window.location.pathname + 'app/ajax.php', {
             type: 'student',
             ssn: ssn
         },
