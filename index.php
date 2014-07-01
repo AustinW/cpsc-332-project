@@ -71,6 +71,7 @@
                                             </div>
                                             <button type="submit" class="btn btn-primary" id="professors-grade-submit"><i class="fa fa-search"></i> Search</button>
 
+                                            <h4 id="professors-grade-course-title"></h4>
                                             <table class="table table-striped table-bordered classes">
                                                 <thead>
                                                     <tr>
@@ -111,6 +112,7 @@
                                             </div>
                                             <button type="submit" class="btn btn-primary" id="courses-search-submit"><i class="fa fa-search"></i> Search</button>
 
+                                            <h4 id="courses-search-course-title"></h4>
                                             <table class="table table-striped table-bordered classes">
                                                 <thead>
                                                     <tr>
@@ -140,6 +142,7 @@
                                             </div>
                                             <button type="submit" class="btn btn-primary" id="student-search-submit"><i class="fa fa-search"></i> Search</button>
 
+                                            <h4 id="student-search-student-name"></h4>
                                             <table class="table table-striped table-bordered classes">
                                                 <thead>
                                                     <tr>

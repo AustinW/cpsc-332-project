@@ -78,7 +78,7 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
                 $retrievedGrades
             );
 
-            echo '<tr>';
+            echo '<tr data-course-title="' . $courseTitle . '">';
             foreach ($grades as $gradeCount) {
                 echo '<td><strong>' . $gradeCount . '</strong></td>';
             }
@@ -112,7 +112,7 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
             printf($noResultsFound, 5);
         } else {
             while ($row = $stmt->fetch()) {
-                echo '<tr>';
+                echo '<tr data-course-title="' . $title . '">';
                 echo '<td>' . $number . '</td>';
                 echo '<td>' . $classroom . '</td>';
                 echo '<td>' . $meetingDays . '</td>';
@@ -129,24 +129,25 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
 
         $cwid = (int) $_GET['cwid'];
 
-        $sql = "SELECT courses.number, courses.title, enrollment.grade
+        $sql = "SELECT courses.number, courses.title, enrollment.grade, students.name
                 FROM enrollment
                 INNER JOIN sections ON sections.number = enrollment.section_number
                 INNER JOIN courses ON courses.number = sections.course_number
+                INNER JOIN students ON students.cwid = enrollment.student_cwid
                 WHERE enrollment.student_cwid = ?";
 
         $stmt = $db->prepare($sql);
         $stmt->bind_param('i', $cwid);
         $stmt->execute();
         $stmt->store_result();
-        $stmt->bind_result($number, $title, $grade);
+        $stmt->bind_result($number, $title, $grade, $studentName);
 
 
         if ($stmt->num_rows == 0) {
             printf($noResultsFound, 2);
         } else {
             while ($row = $stmt->fetch()) {
-                echo '<tr>';
+                echo '<tr data-student-name="' . $studentName . '">';
                 echo '<td>(' . $number . ') ' . $title . '</td>';
                 echo '<td>' . $grade . '</td>';
                 echo '</tr>';
