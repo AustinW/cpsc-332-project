@@ -46,3 +46,9 @@ INNER JOIN sections ON sections.number = enrollment.section_number
 INNER JOIN courses ON courses.number = sections.course_number
 WHERE enrollment.student_cwid = ?
 ```
+
+## Screenshots
+![Professors Interface](https://raw.githubusercontent.com/AustinW/cpsc-332-project/master/professors-interface.png "Professors Interface")
+![Students Interface](https://raw.githubusercontent.com/AustinW/cpsc-332-project/master/students-interface.png "Students Interface")
+![Professors Running](https://raw.githubusercontent.com/AustinW/cpsc-332-project/master/professors-screenshot.png "Professors Running")
+![Students Running](https://raw.githubusercontent.com/AustinW/cpsc-332-project/master/students-screenshot.png "Students Running")
