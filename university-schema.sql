@@ -42,8 +42,7 @@ CREATE TABLE `enrollment` (
 CREATE TABLE `professors` (
   `ssn` int(9) NOT NULL,
   `department_number` int(11) DEFAULT NULL,
-  `fname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `lname` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `sex` enum('male','female') COLLATE utf8_unicode_ci NOT NULL DEFAULT 'male',
   `title` varchar(255) COLLATE utf8_unicode_ci NOT NULL DEFAULT '',
   `salary` int(6) NOT NULL,
@@ -73,11 +72,22 @@ CREATE TABLE `sections` (
   CONSTRAINT `sections_professor_ssn_foreign` FOREIGN KEY (`professor_ssn`) REFERENCES `professors` (`ssn`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='meeting_days could possibly be a separate one-to-many table to specify and categorize days and times depending on the needs of the application';
 
+CREATE TABLE `student_minor` (
+  `student_cwid` int(11) unsigned NOT NULL,
+  `minor_department` int(11) unsigned NOT NULL,
+  PRIMARY KEY (`student_cwid`,`minor_department`),
+  KEY `student_minor_minor_department_foreign` (`minor_department`),
+  CONSTRAINT `student_minor_minor_department_foreign` FOREIGN KEY (`minor_department`) REFERENCES `departments` (`number`) ON DELETE CASCADE,
+  CONSTRAINT `student_minor_student_cwid_foreign` FOREIGN KEY (`student_cwid`) REFERENCES `students` (`cwid`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 CREATE TABLE `students` (
-  `cwid` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `fname` varchar(100) NOT NULL DEFAULT '',
-  `lname` varchar(100) NOT NULL DEFAULT '',
+  `cwid` int(11) unsigned NOT NULL,
+  `name` varchar(255) NOT NULL DEFAULT '',
   `address` varchar(255) NOT NULL DEFAULT '',
   `telephone` varchar(20) DEFAULT '',
-  PRIMARY KEY (`cwid`)
+  `major` int(11) unsigned DEFAULT NULL,
+  PRIMARY KEY (`cwid`),
+  KEY `students_major_foreign` (`major`),
+  CONSTRAINT `students_major_foreign` FOREIGN KEY (`major`) REFERENCES `departments` (`number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Specification dictates an address, but does not specify it as a composite field so we will just use one column to hold the address';

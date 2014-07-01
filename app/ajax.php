@@ -13,7 +13,7 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
 
         $ssn = (int)$_GET['ssn'];
 
-        $sql = "SELECT professors.fname, professors.lname, courses.title, sections.classroom, sections.meeting_days, sections.beginning_time, sections.end_time
+        $sql = "SELECT professors.name, courses.title, sections.classroom, sections.meeting_days, sections.beginning_time, sections.end_time
                 FROM professors
                 INNER JOIN sections ON sections.professor_ssn = professors.ssn
                 INNER JOIN courses ON courses.number = sections.course_number
@@ -23,14 +23,14 @@ if (isset($_GET['type']) && $_GET['type'] == 'professor') {
         $stmt->bind_param('i', $ssn);
         $stmt->execute();
         $stmt->store_result();
-        $stmt->bind_result($fname, $lname, $title, $classroom, $meeting_days, $beginning_time, $end_time);
+        $stmt->bind_result($name, $title, $classroom, $meeting_days, $beginning_time, $end_time);
 
         if ($stmt->num_rows == 0) {
             printf($noResultsFound, 5);
         } else {
             while ($row = $stmt->fetch()) {
                 echo '<tr>';
-                echo '<td>' . $fname . ' ' . $lname . '</td>';
+                echo '<td>' . $name . '</td>';
                 echo '<td>' . $title . '</td>';
                 echo '<td>' . $classroom . '</td>';
                 echo '<td>' . $meeting_days . '</td>';

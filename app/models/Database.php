@@ -10,41 +10,41 @@ require __DIR__ . '/../libraries/Config.php';
 
 class Database {
 
-    protected static $connection;
-
     private function __construct() {}
 
     public static function instance()
     {
-        static $instance = null;
+        static $mysqliInstance = null;
 
-        if ($instance === null) {
+        if ($mysqliInstance === null) {
             $settings = Config::get('database::connection');
 
             try {
-                $instance = new mysqli($settings['host'], $settings['username'], $settings['password'], $settings['database']);
+                $mysqliInstance = new mysqli($settings['host'], $settings['username'], $settings['password'], $settings['database']);
             } catch(Exception $e) {
                 die('MySQLi Error: ' . $e->getMessage());
             }
         }
 
-        return $instance;
+        return $mysqliInstance;
     }
 
     public static function pdo()
     {
-        static $instance = null;
+        static $pdoInstance = null;
 
-        if ($instance === null) {
+        if ($pdoInstance === null) {
             $settings = Config::get('database::connection');
 
             try {
-                $instance = new PDO('mysql:host=' . $settings['host'] . ';dbname=' . $settings['database'], $settings['username'], $settings['password']);
-                $instance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                $pdoInstance = new PDO('mysql:host=' . $settings['host'] . ';dbname=' . $settings['database'], $settings['username'], $settings['password']);
+                $pdoInstance->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (Exception $e) {
                 die('PDO Error: ' . $e->getMessage());
             }
         }
+
+        return $pdoInstance;
 
     }
 }

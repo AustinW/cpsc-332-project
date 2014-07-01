@@ -15,23 +15,24 @@ $faker = Faker\Factory::create();
 $db = Database::pdo();
 
 $sql = "INSERT INTO professors
-        (ssn, fname, lname, sex, title, salary, college_degrees, address_street, address_city, address_state, address_zip, phone_area, phone_number)
+        (ssn, name, sex, title, salary, college_degrees, address_street, address_city, address_state, address_zip, phone_area, phone_number)
         VALUES
-        (:ssn, :fname, :lname, :sex, :title, :salary, :college_degrees, :address_street, :address_city, :address_state, :address_zip, :phone_area, :phone_number)";
+        (:ssn, :name, :sex, :title, :salary, :college_degrees, :address_street, :address_city, :address_state, :address_zip, :phone_area, :phone_number)";
 
 $query = $db->prepare($sql);
 
 for ($i = 0; $i < 100; ++$i) {
     $gender = $faker->randomElement(array('male', 'female'));
 
+    require 'providers/degrees.php';
+
     $data = array(
         'ssn' => $faker->numberBetween(100000000, 999999999),
-        'fname' => $faker->firstName($gender),
-        'lname' => $faker->lastName,
+        'name' => $faker->name($gender),
         'sex' => $faker->randomElement(array('male', 'female')),
         'title' => $faker->title($gender),
         'salary' => $faker->randomNumber(5),
-        'college_degrees' => $faker->randomElement(array('BS Computer Science', 'BS Mathematics')),
+        'college_degrees' => $faker->randomElement($degrees),
         'address_street' => $faker->streetAddress,
         'address_city' => $faker->city,
         'address_state' => $faker->stateAbbr,

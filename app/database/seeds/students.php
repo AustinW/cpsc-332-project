@@ -15,9 +15,9 @@ $faker = Faker\Factory::create();
 $db = Database::pdo();
 
 $sql = "INSERT INTO students
-        (cwid, fname, lname, address, telephone)
+        (cwid, name, address, telephone)
         VALUES
-        (:cwid, :fname, :lname, :address, :telephone)";
+        (:cwid, :name, :address, :telephone)";
 
 $query = $db->prepare($sql);
 
@@ -26,8 +26,7 @@ for ($i = 0; $i < 300; ++$i) {
 
     $data = array(
         'cwid' => $faker->numberBetween(100000000, 999999999),
-        'fname' => $faker->firstName($gender),
-        'lname' => $faker->lastName,
+        'name' => $faker->name($gender),
         'address' => $faker->address,
         'telephone' => $faker->phoneNumber,
     );

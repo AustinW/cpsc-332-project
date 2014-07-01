@@ -10,7 +10,7 @@ Our project uses the following queries to scan the database for relevant informa
 
 Part A)
 ```sql
-SELECT professors.fname, professors.lname, courses.title, sections.classroom, sections.meeting_days, sections.beginning_time, sections.end_time
+SELECT professors.name, courses.title, sections.classroom, sections.meeting_days, sections.beginning_time, sections.end_time
 FROM professors
 INNER JOIN sections ON sections.professor_ssn = professors.ssn
 INNER JOIN courses ON courses.number = sections.course_number
