@@ -35,8 +35,8 @@ CREATE TABLE `enrollment` (
   `grade` varchar(2) DEFAULT NULL,
   PRIMARY KEY (`student_cwid`,`section_number`),
   KEY `enrollment_section_number_foreign` (`section_number`),
-  CONSTRAINT `enrollment_student_cwid_foreign` FOREIGN KEY (`student_cwid`) REFERENCES `students` (`cwid`) ON DELETE CASCADE,
-  CONSTRAINT `enrollment_section_number_foreign` FOREIGN KEY (`section_number`) REFERENCES `sections` (`number`)
+  CONSTRAINT `enrollment_section_number_foreign` FOREIGN KEY (`section_number`) REFERENCES `sections` (`number`),
+  CONSTRAINT `enrollment_student_cwid_foreign` FOREIGN KEY (`student_cwid`) REFERENCES `students` (`cwid`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 CREATE TABLE `professors` (
@@ -83,7 +83,8 @@ CREATE TABLE `student_minor` (
 
 CREATE TABLE `students` (
   `cwid` int(11) unsigned NOT NULL,
-  `name` varchar(255) NOT NULL DEFAULT '',
+  `fname` varchar(255) NOT NULL DEFAULT '',
+  `lname` varchar(255) NOT NULL DEFAULT '',
   `address` varchar(255) NOT NULL DEFAULT '',
   `telephone` varchar(20) DEFAULT '',
   `major` int(11) unsigned DEFAULT NULL,
